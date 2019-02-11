@@ -1,0 +1,5 @@
+figures/*
+venv/*
+log.dat
+.idea
+__pycache__
