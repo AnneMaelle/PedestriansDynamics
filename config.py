@@ -1,6 +1,6 @@
 import os
 
-neighborhood = "Moore"
+neighborhood = "Neumann"
 nbPeds = 100
 width = 32
 height = 32
