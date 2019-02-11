@@ -78,12 +78,14 @@ def main(args):
     np.random.seed(0)
     random.seed(0)
     dico = {}
-    for _, _ , names in os.walk('.\\ressources\\multiple_exits'):
-        for image_name in names:
-            cfg.image_name = image_name
-            cfg.image_path = os.path.join(os.path.curdir, 'ressources', image_name)
-            total_time = simulate_exit(False)
-            dico[image_name] = total_time
+    for image_name in os.listdir('.\\ressources'):
+        cfg.image_name = image_name
+        cfg.image_path = os.path.join(os.path.curdir, 'ressources', image_name)
+        try:
+                total_time = simulate_exit(False)
+                dico[image_name] = total_time
+        except:
+                pass
 
     print(dico)
 
