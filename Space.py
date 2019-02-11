@@ -126,6 +126,21 @@ class Space:
                         n = self.grid[cell.position_y + i][cell.position_x + j]
                         N.append(n)
             return N
+        elif cfg.neighborhood == "Neumann":
+            N = []
+            if self.checkInBounds(cell.position_y + 1, cell.position_x):
+                n = self.grid[cell.position_y + 1][cell.position_x]
+                N.append(n)
+            if self.checkInBounds(cell.position_y - 1, cell.position_x):
+                n = self.grid[cell.position_y - 1][cell.position_x]
+                N.append(n)
+            if self.checkInBounds(cell.position_y, cell.position_x + 1):
+                n = self.grid[cell.position_y][cell.position_x + 1]
+                N.append(n)
+            if self.checkInBounds(cell.position_y, cell.position_x - 1):
+                n = self.grid[cell.position_y][cell.position_x - 1]
+                N.append(n)
+            return N
         else:
             raise NotImplementedError("Only Moore neighborhood is implemented")
 
@@ -191,7 +206,6 @@ class Space:
                         except KeyError:
                             conflicts[neighbor] = [cell.pedestrian]
                         break
-                # print("'3'")
         return conflicts
 
     def solveConflicts(self, conflicts):

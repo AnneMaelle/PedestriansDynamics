@@ -3,3 +3,4 @@ venv/*
 log.dat
 .idea
 __pycache__
+.vscode/*
