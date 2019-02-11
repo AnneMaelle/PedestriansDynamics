@@ -80,15 +80,30 @@ def plot_dff(space, iteration_i):
 
     array = np.zeros((len(space.grid), len(space.grid[0])))
 
+    max = 0
     for i in range(array.shape[0]):
         for j in range(array.shape[1]):
-            array[i, j] = space.grid[i][j].dff_value
+            if space.grid[i][j].dff_value == np.inf:
+                # array[i, j] = 0
+                pass
+            else:
+                if space.grid[i][j].dff_value > max:
+                    max = space.grid[i][j].dff_value
+                array[i, j] = space.grid[i][j].dff_value
 
-    plt.set_cmap('jet')
-    cmap = plt.get_cmap()
-    cmap.set_bad(color='k', alpha=0.8)
+    for i in range(array.shape[0]):
+        for j in range(array.shape[1]):
+            if space.grid[i][j].isObstacle():
+                array[i, j] = 0
+            elif space.grid[i][j].dff_value == 0:
+                array[i, j] = 1
+            else:
+                if space.grid[i][j].dff_value > max:
+                    max = space.grid[i][j].dff_value
+                array[i, j] = max + 5 - space.grid[i][j].dff_value
 
-    ax.imshow(array, cmap=cmap, interpolation='nearest', vmin=-1, vmax=2)
+
+    ax.imshow(array, cmap=plt.get_cmap('jet'))
     plt.grid(True, color='k', alpha=0.3)
     plt.yticks(np.arange(1.5, array.shape[0], 1))
     plt.xticks(np.arange(1.5, array.shape[1], 1))
