@@ -2,6 +2,7 @@ from Space import *
 import argparse
 import config as cfg
 import visualization
+import os
 
 def get_parser_args():
     parser = argparse.ArgumentParser(
@@ -52,26 +53,39 @@ def get_parser_args():
     _args = parser.parse_args()
     return _args
 
-
-def main(args):
-
-    np.random.seed(0)
-    random.seed(0)
-
-    space = Space(cfg.width, cfg.height, cfg.nbPeds, imageName=cfg.image_name)
+def simulate_exit(plot_values):
+    print(f'Simulation with {cfg.image_name}')
+    space = Space(cfg.width, cfg.height, cfg.nbPeds, imageName=cfg.image_path)
     t = 0
     print(f" iteration {t} | number of pedestrians left : {space.nbPeds}")
-    visualization.plot_sff(space)
-    visualization.plot_space_with_peds(space, t)
+    if plot_values:
+         visualization.plot_sff(space)
+         visualization.plot_space_with_peds(space, t)
     while space.nbPeds != 0:
         t += 1
         conflicts = space.sequential_update()
         space.solveConflicts(conflicts)
         space.updateDFF()
         print(f" iteration {t} | number of pedestrians left : {space.nbPeds}")
-        visualization.plot_space_with_peds(space, t)
-        visualization.plot_dff(space, t)
+        if plot_values:
+            visualization.plot_space_with_peds(space, t)
+            visualization.plot_dff(space, t)
 
+    return t
+
+def main(args):
+
+    np.random.seed(0)
+    random.seed(0)
+    dico = {}
+    for _, _ , names in os.walk('.\\ressources\\multiple_exits'):
+        for image_name in names:
+            cfg.image_name = image_name
+            cfg.image_path = os.path.join(os.path.curdir, 'ressources', image_name)
+            total_time = simulate_exit(False)
+            dico[image_name] = total_time
+
+    print(dico)
 
 if __name__ == "__main__":
     args = get_parser_args()

@@ -42,6 +42,8 @@ class Cell:
 class Space:
 
     def __init__(self, width, height, nbPeds, imageName=None):
+        np.random.seed(0)
+        random.seed(0)
         self.grid = [[Cell(0, i, j) for i in range(width)] for j in range(height)]
         self.exits = []
         self.nbPeds = nbPeds
@@ -134,12 +136,15 @@ class Space:
         for row in self.grid:
             for cell in row:
                 if cell.hasPedestrian():
-                    cell.dff_value += cfg.delta_DFF
+                    cell.dff_value = min(cfg.max_dff_value, cell.dff_value + cfg.delta_DFF)
                 if np.random.rand() < cfg.decay_rate_DFF:
-                    cell.dff_value = max(0, cell.dff_value - cfg.delta_DFF)
+                    cell.dff_value = max(0, cell.dff_value - cfg.delta_decay_DFF)
                 elif np.random.rand() < cfg.diffusion_rate_DFF and cell.dff_value > 0:
-                    cell.dff_value = max(0, cell.dff_value - cfg.delta_DFF)
-                    random.choice(self.getNeighborsCells(cell)).dff_value += cfg.delta_DFF
+                    cell.dff_value = max(0, cell.dff_value - cfg.delta_diffusion_DFF)
+                    neighbor = random.choice(self.getNeighborsCells(cell))
+                    if neighbor.isObstacle:
+                        continue
+                    neighbor.dff_value = min(cfg.max_dff_value, neighbor.dff_value + cfg.delta_DFF)
 
 
     def move_ped(self, old_cell, new_cell):
