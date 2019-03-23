@@ -28,7 +28,7 @@ def plot_space_with_peds(space, iteration_i=1):
 
     S = 't: %3.3d  |  N: %3.3d ' % (iteration_i, space.nbPeds)
     plt.title("%8s" % S)
-    figure_name = os.path.join('figures', 'peds', f'peds_{cfg.image_name.split(".")[0]}_{iteration_i}.png')
+    figure_name = os.path.join('figures', 'peds', 'peds_{}_{}.png'.format(cfg.image_name.split(".")[0], iteration_i))
     plt.savefig(figure_name)
     plt.close()
 
@@ -69,7 +69,7 @@ def plot_sff(space):
     ax.tick_params(axis='both', which='both', length=0)
 
     plt.title("Static floor field")
-    figure_name = os.path.join('figures', f'sff_{cfg.image_name.split(".")[0]}')
+    figure_name = os.path.join('figures', 'sff_{}'.format(cfg.image_name.split(".")[0]))
     plt.savefig(figure_name)
     plt.close()
 
@@ -114,6 +114,6 @@ def plot_dff(space, iteration_i):
 
     S = 't: %3.3d ' % (iteration_i)
     plt.title("%8s" % S)
-    figure_name = os.path.join('figures', 'dff', f'dff_{cfg.image_name.split(".")[0]}_{iteration_i}.png')
+    figure_name = os.path.join('figures', 'dff', 'dff_{}_{}.png'.format(cfg.image_name.split(".")[0], iteration_i))
     plt.savefig(figure_name)
     plt.close()

@@ -1,7 +1,7 @@
 import os
 
 neighborhood = "Moore"
-nbPeds = 250
+nbPeds = 500
 width = 32
 height = 32
 image_name = '1exit_2large.tif'

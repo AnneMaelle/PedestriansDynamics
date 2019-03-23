@@ -98,7 +98,7 @@ class Space:
     def checkNbPeds(self):
         nbMax = self.grid.__len__() * self.grid[0].__len__() - self.nbCellObstacles
         if self.nbPeds > nbMax:
-            print(f"Too many pedestrians for this room, only {nbMax} can fit")
+            print("Too many pedestrians for this room, only {} can fit".format(nbMax))
             self.nbPeds = nbMax
 
     def initPedestrians(self):
