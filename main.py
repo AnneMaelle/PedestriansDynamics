@@ -29,11 +29,8 @@ def main():
     np.random.seed(0)
     random.seed(0)
     dico = {}
-    try:
-        total_time = simulate_exit(cfg.plot)
-        dico[cfg.image_name] = total_time
-    except:
-        pass
+    total_time = simulate_exit(cfg.plot)
+    dico[cfg.image_name] = total_time
 
     print(dico)
 
