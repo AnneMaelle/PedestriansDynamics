@@ -1,7 +1,7 @@
 import os
 
 neighborhood = "Moore"
-nbPeds = 250
+nbPeds = 100
 width = 32
 height = 32
 image_name = '1exit_2large.tif'
@@ -14,4 +14,5 @@ delta_diffusion_DFF = delta_DFF/2
 max_dff_value = 0.9
 kappaS = 2
 kappaD = 0.5
+plot = False #To plot sff, dff and pedestrians map
 
