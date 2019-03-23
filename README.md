@@ -9,4 +9,5 @@ An evacuation of pedestrians in a room
 
 ## Requirements
 
-Run in your terminal `pip install -r requirements.txt`
+Python version 3.5 and prior, won't work with Python 2.
+Run in your terminal `pip install -r requirements.txt` or `pip3 install -r requirements.txt`
